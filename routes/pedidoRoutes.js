@@ -7,7 +7,7 @@ router.post('/agregar-pedido', (req, res) => {
     const { descripcion, total, id_empleado, id_cliente } = req.body;
 
     // Verificar si los campos obligatorios están presentes
-    if (!descripcion || !total || !id_empleado) {
+    if (!descripcion || !total || !id_empleado || !id_cliente) {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
 
