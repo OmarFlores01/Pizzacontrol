@@ -3,13 +3,14 @@ const router = express.Router();
 const db = require('../models/config/db'); 
 
 // Ruta para login de empleados y clientes
+// Ruta para login de empleados y clientes
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
         // Verificar si el usuario es un cliente
         const clienteResult = await db.query(
-            'SELECT "ID_Cliente", "Correo" FROM clientes WHERE "Correo" = $1 AND "Contrasena" = $2',
+            'SELECT ID_Cliente, Correo FROM clientes WHERE Correo = $1 AND Contrasena = $2',
             [email, password]
         );
 
@@ -17,13 +18,13 @@ router.post('/login', async (req, res) => {
             return res.json({
                 success: true,
                 redirect: '/views/usuario.html',
-                id_cliente: clienteResult.rows[0].ID_Cliente
+                id_cliente: clienteResult.rows[0].id_cliente // Asegúrate que sea minúscula en los resultados
             });
         }
 
         // Verificar si el usuario es un empleado
         const empleadoResult = await db.query(
-            'SELECT "ID_Empleado", "Correo" FROM empleados WHERE "Correo" = $1 AND "Contrasena" = $2',
+            'SELECT ID_Empleado, Correo FROM empleados WHERE Correo = $1 AND Contrasena = $2',
             [email, password]
         );
 
@@ -31,7 +32,7 @@ router.post('/login', async (req, res) => {
             return res.json({
                 success: true,
                 redirect: '/views/empleado.html',
-                id_empleado: empleadoResult.rows[0].ID_Empleado
+                id_empleado: empleadoResult.rows[0].id_empleado
             });
         }
 
@@ -43,6 +44,7 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ error: 'Error en la base de datos' });
     }
 });
+
 
 // Ruta para manejar el registro de clientes
 router.post('/registro', async (req, res) => {
