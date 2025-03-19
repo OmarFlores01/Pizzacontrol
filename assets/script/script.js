@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const email = loginForm.email.value;
             const password = loginForm.password.value;
 
+            // Imprimir los valores antes de enviarlos
+            console.log("Datos del formulario de login:", { email, password });
+
             try {
                 const response = await fetch("/api/auth/login", {
                     method: "POST",
