@@ -1,18 +1,16 @@
-const mysql = require('mysql'); // carga el paquete mysql
+const { Pool } = require('pg');
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',      // usuario de MySQL
-    password: '',      // contraseña 
-    database: 'pizzacontrol' // nombre de bd
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // Render configura esta variable automáticamente
+  ssl: { rejectUnauthorized: false }       // Configuración para conexión segura
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error al conectar a la base de datos:', err);
-        return;
-    }
-    console.log('Conectado a la base de datos MySQL');
+pool.connect((err) => {
+  if (err) {
+    console.error('Error al conectar a la base de datos:', err);
+  } else {
+    console.log('Conectado a la base de datos PostgreSQL.');
+  }
 });
 
-module.exports = db;
+module.exports = pool;
