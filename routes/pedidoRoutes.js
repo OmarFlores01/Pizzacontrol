@@ -5,7 +5,7 @@ const db = require('../models/config/db'); // Asegúrate de tener tu conexión a
 // Ruta para agregar un pedido
 router.post('/agregar-pedido', (req, res) => {
     const { descripcion, total, id_empleado, id_cliente } = req.body;
-    const estado = 'En preparación';  // Valor estático para prueba
+    let estado = 'En preparación';  // Valor estático para prueba
 
     console.log('Estado:', estado);  // Verifica el valor exacto de Estado
 
@@ -14,10 +14,12 @@ router.post('/agregar-pedido', (req, res) => {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
 
-    // Verificar si el estado es válido
-    const estadosValidos = ['En preparación', 'Listo', 'Entregado'];
+    // Limpiar y validar el estado
+    estado = estado.trim().toLowerCase(); // Limpiar espacios y convertir a minúsculas
+
+    const estadosValidos = ['en preparación', 'listo', 'entregado'];
     if (!estadosValidos.includes(estado)) {
-        return res.status(400).json({ success: false, message: 'Estado no válido' });
+        return res.status(400).json({ success: false, message: 'Estado no válido. Los estados válidos son: "en preparación", "listo", o "entregado".' });
     }
 
     // Consulta SQL para insertar el nuevo pedido
@@ -63,8 +65,16 @@ router.put('/actualizar-pedido', (req, res) => {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
 
+    // Limpiar y validar el estado
+    const estadoLimpio = estado.trim().toLowerCase();  // Limpiar espacios y convertir a minúsculas
+    const estadosValidos = ['en preparación', 'listo', 'entregado'];
+
+    if (!estadosValidos.includes(estadoLimpio)) {
+        return res.status(400).json({ success: false, message: 'Estado no válido. Los estados válidos son: "en preparación", "listo", o "entregado".' });
+    }
+
     const query = 'UPDATE pedidos SET Descripcion = $1, Estado = $2, Total = $3 WHERE ID_Pedido = $4';
-    db.query(query, [descripcion, estado, total, id_pedido], (err, result) => {
+    db.query(query, [descripcion, estadoLimpio, total, id_pedido], (err, result) => {
         if (err) {
             console.error('Error al actualizar pedido:', err);
             return res.status(500).json({ success: false, message: 'Error en la base de datos' });
