@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const registroForm = document.getElementById("registroForm");
 
+    // Manejo del login
     if (loginForm) {
         loginForm.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Manejo del registro
     if (registroForm) {
         registroForm.addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -66,4 +68,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
