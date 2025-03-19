@@ -35,6 +35,7 @@ router.post('/login', async (req, res) => {
             });
         }
 
+        // Si no se encuentra ni un cliente ni un empleado
         return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
 
     } catch (err) {
@@ -68,3 +69,4 @@ router.post('/registro', async (req, res) => {
 });
 
 module.exports = router;
+
