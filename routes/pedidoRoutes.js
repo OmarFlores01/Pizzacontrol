@@ -7,22 +7,24 @@ router.post('/agregar-pedido', (req, res) => {
     const { descripcion, total, id_empleado, id_cliente } = req.body;
 
     // Verificar si los campos obligatorios están presentes
-    if (!descripcion || !total || !id_empleado || !id_cliente) {
+    if (!descripcion || !total || !id_empleado) {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
+
+    // Si el id_cliente no está presente o es null, asignar null
+    const cliente = (id_cliente && id_cliente !== 'null') ? id_cliente : null;
 
     // Consulta SQL para insertar el nuevo pedido
     const query = `INSERT INTO pedidos (Descripcion, Estado, Fecha, Total, ID_Empleado, ID_Cliente) 
                    VALUES ($1, 'En preparación', NOW(), $2, $3, $4)`;
 
-    db.query(query, [descripcion, total, id_empleado, id_cliente], (err, result) => {
-    if (err) {
-        console.error('Error detallado al agregar pedido:', err);  // Esto nos dará más detalles sobre el error
-        return res.status(500).json({ success: false, message: 'Error al agregar el pedido', error: err.message });
-    }
-    res.json({ success: true, message: 'Pedido agregado correctamente' });
-});
-
+    db.query(query, [descripcion, total, id_empleado, cliente], (err, result) => {
+        if (err) {
+            console.error('Error detallado al agregar pedido:', err);  // Esto nos dará más detalles sobre el error
+            return res.status(500).json({ success: false, message: 'Error al agregar el pedido', error: err.message });
+        }
+        res.json({ success: true, message: 'Pedido agregado correctamente' });
+    });
 });
 
 // Obtener todos los pedidos
