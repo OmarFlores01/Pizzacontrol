@@ -23,7 +23,7 @@ router.post('/agregar-pedido', (req, res) => {
     }
 
     // Consulta SQL para insertar el nuevo pedido
-    const query = `INSERT INTO pedidos (Descripcion, Estado, Fecha, Total, ID_Empleado, ID_Cliente) 
+    const query = `INSERT INTO pedidos (descripcion, estado, fecha, total, id_empleado, id_cliente) 
                    VALUES ($1, $2, NOW(), $3, $4, $5)`;
 
     db.query(query, [descripcion, estado, total, id_empleado, id_cliente], (err, result) => {
@@ -49,7 +49,7 @@ router.get('/obtener-pedidos', (req, res) => {
 // Obtener un pedido por ID
 router.get('/obtener-pedidos/:id_pedido', (req, res) => {
     const { id_pedido } = req.params;
-    db.query('SELECT * FROM pedidos WHERE ID_Pedido = $1', [id_pedido], (err, result) => {
+    db.query('SELECT * FROM pedidos WHERE id_pedido = $1', [id_pedido], (err, result) => {
         if (err) {
             console.error('Error al obtener el pedido:', err);
             return res.status(500).json({ success: false, message: 'Error en la base de datos' });
@@ -73,7 +73,7 @@ router.put('/actualizar-pedido', (req, res) => {
         return res.status(400).json({ success: false, message: 'Estado no válido. Los estados válidos son: "en preparación", "listo", o "entregado".' });
     }
 
-    const query = 'UPDATE pedidos SET Descripcion = $1, Estado = $2, Total = $3 WHERE ID_Pedido = $4';
+    const query = 'UPDATE pedidos SET descripcion = $1, estado = $2, total = $3 WHERE id_pedido = $4';
     db.query(query, [descripcion, estadoLimpio, total, id_pedido], (err, result) => {
         if (err) {
             console.error('Error al actualizar pedido:', err);
@@ -90,7 +90,7 @@ router.delete('/eliminar', (req, res) => {
         return res.status(400).json({ success: false, message: 'ID de pedido requerido' });
     }
 
-    db.query('DELETE FROM pedidos WHERE ID_Pedido = $1', [id_pedido], (err) => {
+    db.query('DELETE FROM pedidos WHERE id_pedido = $1', [id_pedido], (err) => {
         if (err) {
             return res.status(500).json({ success: false, message: 'Error al eliminar el pedido' });
         }
