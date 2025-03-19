@@ -1,18 +1,19 @@
-const { Pool } = require('pg');
+const { Client } = require("pg");
+require("dotenv").config(); // Cargar variables de entorno desde .env
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
+// Configurar conexión a PostgreSQL
+const client = new Client({
+    connectionString: process.env.DATABASE_URL, // Usa la variable de entorno
+    ssl: {
+        rejectUnauthorized: false, // Necesario para Render
+    },
 });
 
-pool.connect((err) => {
-  if (err) {
-    console.error('Error al conectar a la base de datos:', err);
-  } else {
-    console.log('Conectado a la base de datos PostgreSQL.');
-  }
-});
+// Conectar a la base de datos
+client.connect()
+    .then(() => console.log("✅ Conectado a la base de datos PostgreSQL"))
+    .catch(err => console.error("❌ Error al conectar a PostgreSQL:", err));
 
-module.exports = pool;
+module.exports = client;
 
 
