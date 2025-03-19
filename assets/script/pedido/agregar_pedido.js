@@ -3,10 +3,11 @@ document.getElementById('pedidoForm').addEventListener('submit', function(event)
 
     const descripcion = document.getElementById('descripcion').value.trim();
     const total = parseFloat(document.getElementById('total').value);
-    const id_empleado = localStorage.getItem('id_empleado'); 
+    const id_empleado = localStorage.getItem('id_empleado');
+    const id_cliente = localStorage.getItem('id_cliente'); // Obtener el id_cliente desde localStorage o donde lo tengas almacenado
 
-    if (!id_empleado) {
-        alert('Error: No hay un empleado identificado.');
+    if (!id_empleado || !id_cliente) {
+        alert('Error: No hay un empleado o cliente identificado.');
         return;
     }
 
@@ -18,7 +19,7 @@ document.getElementById('pedidoForm').addEventListener('submit', function(event)
     fetch('/api/pedidos/agregar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ descripcion, total, id_empleado })
+        body: JSON.stringify({ descripcion, total, id_empleado, id_cliente }) // Incluir id_cliente aquí
     })
     .then(response => response.json())
     .then(data => {
