@@ -65,9 +65,9 @@ router.put('/actualizar-pedido', (req, res) => {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
 
-    // Limpiar y validar el estado
-    const estadoLimpio = estado.trim().toLowerCase();  // Limpiar espacios y convertir a minúsculas
-    const estadosValidos = ['en preparación', 'listo', 'entregado'];
+    estado = estado.trim(); // Limpiar espacios
+const estadosValidos = ['En preparación', 'Listo', 'Entregado'];
+
 
     if (!estadosValidos.includes(estadoLimpio)) {
         return res.status(400).json({ success: false, message: 'Estado no válido. Los estados válidos son: "en preparación", "listo", o "entregado".' });
