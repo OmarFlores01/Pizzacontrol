@@ -1,13 +1,13 @@
 const { Client } = require("pg");
 require("dotenv").config(); // Cargar variables de entorno desde .env
 
-// Configurar conexión a PostgreSQL
 const client = new Client({
-    connectionString: process.env.DATABASE_URL, // Usa la variable de entorno
+    connectionString: process.env.DATABASE_URL, // Usa la URL externa correcta
     ssl: {
         rejectUnauthorized: false, // Necesario para Render
     },
 });
+
 
 // Conectar a la base de datos
 client.connect()
