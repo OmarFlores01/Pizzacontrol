@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
             // Si las contraseñas están en texto plano
             const isMatch = password === cliente.Contrasena;
 
-            // Si las contraseñas están hashadas, usa bcrypt:
+            // Si las contraseñas están hasheadas, usa bcrypt:
             // const isMatch = await bcrypt.compare(password, cliente.Contrasena);
 
             if (isMatch) {
@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
             // Si las contraseñas están en texto plano
             const isMatch = password === empleado.Contrasena;
 
-            // Si las contraseñas están hashadas, usa bcrypt:
+            // Si las contraseñas están hasheadas, usa bcrypt:
             // const isMatch = await bcrypt.compare(password, empleado.Contrasena);
 
             if (isMatch) {
@@ -75,4 +75,3 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
-
