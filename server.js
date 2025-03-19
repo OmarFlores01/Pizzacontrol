@@ -1,3 +1,5 @@
+require('dotenv').config();  // Asegúrate de que esta línea esté al principio del archivo
+
 const express = require('express');
 const cors = require('cors'); //Middleware que permite hacer peticiones   app.use()/Ejecuta código en cada petición    
 const path = require('path'); // Módulo de Node.js para manejar rutas de archivos y directorios.
