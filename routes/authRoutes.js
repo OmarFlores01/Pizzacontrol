@@ -52,14 +52,14 @@ router.post('/registro', async (req, res) => {
 
     try {
         // Verificar si el correo ya está registrado
-        const result = await db.query('SELECT * FROM clientes WHERE "Correo" = $1', [correo]);
+        const result = await db.query('SELECT * FROM clientes WHERE Correo = $1', [correo]);
 
         if (result.rows.length > 0) {
             return res.status(400).json({ success: false, message: 'Correo ya registrado' });
         }
 
         // Insertar nuevo cliente
-        const query = 'INSERT INTO clientes ("Nombre", "Correo", "Contrasena", "Numero") VALUES ($1, $2, $3, $4)';
+        const query = 'INSERT INTO clientes (Nombre, Correo, Contrasena, Numero) VALUES ($1, $2, $3, $4)';
         await db.query(query, [nombre, correo, contrasena, numero]);
 
         res.json({ success: true });
@@ -69,6 +69,7 @@ router.post('/registro', async (req, res) => {
         return res.status(500).json({ success: false });
     }
 });
+
 
 module.exports = router;
 
