@@ -1,65 +1,47 @@
-const express = require("express");
-const router = express.Router();
-const db = require("../models/config/db");
-const bcrypt = require("bcrypt");
-
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Consulta en la tabla clientes
+        // Consulta en clientes
         const clienteResult = await db.query(
-    'SELECT "id_cliente", "correo", "contrasena" FROM clientes WHERE "correo" = $1',
-    [email]
-);
-
-
-        console.log("Resultado de la consulta en clientes:", clienteResult.rows);  // Debug
+            'SELECT "id_cliente", "correo", "contrasena" FROM clientes WHERE "correo" = $1',
+            [email]
+        );
 
         if (clienteResult.rows.length > 0) {
             const cliente = clienteResult.rows[0];
-            console.log("Cliente encontrado:", cliente);  // Debug
 
-            // Si las contraseñas están en texto plano
-            const isMatch = password === cliente.Contrasena;
-
-            // Si las contraseñas están hasheadas, usa bcrypt:
-            // const isMatch = await bcrypt.compare(password, cliente.Contrasena);
+            // Verificar la contraseña (compara el texto plano si no usas bcrypt)
+            const isMatch = password === cliente.contrasena; // Aquí debes usar bcrypt si las contraseñas están cifradas
 
             if (isMatch) {
                 return res.json({
                     success: true,
                     redirect: "/views/usuario.html",
-                    id_cliente: cliente.ID_Cliente
+                    id_cliente: cliente.id_cliente
                 });
             } else {
                 return res.status(401).json({ error: "Correo o contraseña incorrectos" });
             }
         }
 
-        // Si no se encuentra en clientes, buscar en empleados
+        // Si no se encontró en clientes, buscar en empleados
         const empleadoResult = await db.query(
-            'SELECT "ID_Empleado", "Correo", "Contrasena" FROM empleados WHERE "Correo" = $1',
+            'SELECT "id_empleado", "correo", "contrasena" FROM empleados WHERE "correo" = $1',
             [email]
         );
 
-        console.log("Resultado de la consulta en empleados:", empleadoResult.rows);  // Debug
-
         if (empleadoResult.rows.length > 0) {
             const empleado = empleadoResult.rows[0];
-            console.log("Empleado encontrado:", empleado);  // Debug
 
-            // Si las contraseñas están en texto plano
-            const isMatch = password === empleado.Contrasena;
-
-            // Si las contraseñas están hasheadas, usa bcrypt:
-            // const isMatch = await bcrypt.compare(password, empleado.Contrasena);
+            // Comparación de contraseñas
+            const isMatch = password === empleado.contrasena;
 
             if (isMatch) {
                 return res.json({
                     success: true,
                     redirect: "/views/empleado.html",
-                    id_empleado: empleado.ID_Empleado
+                    id_empleado: empleado.id_empleado
                 });
             } else {
                 return res.status(401).json({ error: "Correo o contraseña incorrectos" });
@@ -74,5 +56,3 @@ router.post("/login", async (req, res) => {
         return res.status(500).json({ error: "Error en la base de datos" });
     }
 });
-
-module.exports = router;
