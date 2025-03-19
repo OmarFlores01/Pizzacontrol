@@ -59,16 +59,17 @@ router.get('/obtener-pedidos/:id_pedido', (req, res) => {
 });
 
 // Actualizar un pedido
+// Actualizar un pedido
 router.put('/actualizar-pedido', (req, res) => {
     const { id_pedido, descripcion, estado, total } = req.body;
     if (!id_pedido || !descripcion || !estado || !total) {
         return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' });
     }
 
-    estado = estado.trim(); // Limpiar espacios
-const estadosValidos = ['En preparación', 'Listo', 'Entregado'];
+    // Limpiar y validar el estado
+    const estadoLimpio = estado.trim().toLowerCase(); // Limpiar espacios y convertir a minúsculas
 
-
+    const estadosValidos = ['en preparación', 'listo', 'entregado'];
     if (!estadosValidos.includes(estadoLimpio)) {
         return res.status(400).json({ success: false, message: 'Estado no válido. Los estados válidos son: "en preparación", "listo", o "entregado".' });
     }
@@ -82,6 +83,7 @@ const estadosValidos = ['En preparación', 'Listo', 'Entregado'];
         res.json({ success: true, message: 'Pedido actualizado correctamente' });
     });
 });
+
 
 // Eliminar un pedido
 router.delete('/eliminar', (req, res) => {
