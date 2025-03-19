@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Pedido</title>
+    <link rel="stylesheet" href="/assets/logout.css">
+    <link rel="stylesheet" href="/assets/css/style4.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Actualizar Pedido</h1>
+
+        <!-- Tabla para mostrar los pedidos -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Total ($)</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tablaPedidos">
+                <!-- Los pedidos se llenarán aquí -->
+            </tbody>
+        </table>
+
+        <!-- Formulario para actualizar el pedido -->
+        <form id="formActualizar" style="display: none;">
+            <label>Descripción:</label>
+            <input type="text" id="descripcion" required>
+
+            <label>Estado:</label>
+            <select id="estado" required>
+                <option value="En preparación">En preparación</option>
+                <option value="Listo">Listo</option>
+                <option value="Entregado">Entregado</option>
+            </select>
+
+            <label>Total ($):</label>
+            <input type="number" id="total" required>
+
+            <button type="submit">Actualizar Pedido</button>
+        </form>
+    </div>
+
+    <button onclick="window.location.href='/views/empleado.html'" class="btn-atras">Atrás</button>
+
+    <script src="/assets/script/pedido/actualizar_pedido.js"></script>
+</body>
+</html>

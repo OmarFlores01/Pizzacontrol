@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Inventario</title>
+    <link rel="stylesheet" href="/assets/css/style9.css">
+    <link rel="stylesheet" href="/assets/logout.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Agregar Inventario</h1>
+        <form id="inventarioForm">
+            <input type="text" id="nombre_producto" name="nombre_producto" placeholder="Nombre del Producto" required>
+            <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad" required>
+            <button type="submit">Agregar Inventario</button>
+        </form>
+    </div>
+
+    <button class="back-btn" onclick="window.location.href='empleado.html'">Atrás</button>
+    
+    <script src="/assets/script/inventario/agregar_inventario.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de Usuario</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/logout.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Productos Disponibles</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="productos-lista">
+                <!-- Productos dinámicos -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container cart-container">
+        <h1>Carrito de Compras</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="carrito-lista">
+                <!-- Productos en el carrito -->
+            </tbody>
+        </table>
+        <button onclick="finalizarPedido()">Finalizar Pedido</button>
+        <button onclick="verPedido()">Ver Pedido</button>
+    </div>
+
+    <!-- MODAL PARA MOSTRAR DATOS DE TRANSFERENCIA -->
+<div id="modalPago" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalPago()">&times;</span>
+        <h2>Detalles de Pago</h2>
+        <p id="detallePago"></p>
+    </div>
+</div>
+
+
+    <!-- MODAL PARA VER PEDIDO -->
+    <div id="modalPedido" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Estado del Pedido</h2>
+            <p id="detallePedido"></p>
+        </div>
+    </div>
+
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>

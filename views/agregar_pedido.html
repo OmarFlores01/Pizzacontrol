@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Pedido</title>
+    <link rel="stylesheet" href="/assets/logout.css">
+    <link rel="stylesheet" href="/assets/css/styles3.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Agregar Pedido</h1>
+        <form id="pedidoForm">
+            <label for="descripcion">Descripción del Pedido</label>
+            <input type="text" id="descripcion" placeholder="Ej: Pizza grande de peperoni" required>
+
+            <label for="total">Total ($)</label>
+            <input type="number" id="total" placeholder="Total a pagar" required>
+
+            <button type="submit">Agregar Pedido</button>
+        </form>
+    </div>
+
+    <script src="/assets/script/pedido/agregar_pedido.js"></script>
+
+    <!-- Botón atrás FUERA del contenedor y al fondo de la página -->
+    <button onclick="window.location.href='/views/empleado.html'" class="btn-atras">Atrás</button>
+</body>
+</html>

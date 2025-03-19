@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Inventario</title>
+    <link rel="stylesheet" href="/assets/logout.css">
+    <link rel="stylesheet" href="/assets/css/style10.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Actualizar Inventario</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Inventario</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tablaInventario">
+                <!-- Datos del inventario -->
+            </tbody>
+        </table>
+
+        <!-- Formulario de actualización -->
+        <form id="formActualizar">
+            <input type="hidden" id="idInventario">
+            <label>Nombre:</label>
+            <input type="text" id="nombre" required>
+            <label>Cantidad:</label>
+            <input type="number" id="cantidad" required>
+            <button type="submit">Actualizar Inventario</button>
+        </form>
+    </div>
+
+    <script src="/assets/script/inventario/actualizar_inventario.js"></script>
+
+    <button onclick="window.location.href='empleado.html'" class="back-button">Atrás</button>
+</body>
+</html>

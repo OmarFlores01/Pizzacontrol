@@ -1,0 +1,21 @@
+.logout {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: #c0392b;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+    background-color: #a93226;
+}
+
+.logout:active {
+    background-color: #e74c3c;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Pedido</title>
+    <link rel="stylesheet" href="/assets/logout.css">
+    <link rel="stylesheet" href="/assets/css/style5.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+
+    <div class="container">
+        <h1>Eliminar Pedido</h1>
+
+        <!-- Tabla para mostrar los pedidos -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Pedido</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Total ($)</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tablaPedidos">
+                <!-- Los pedidos se llenarán aquí -->
+            </tbody>
+        </table>
+
+        <!-- Botón Atrás -->
+    </div>
+    <button onclick="window.location.href='/views/empleado.html'" class="btn-atras">Atrás</button>
+    <script src="/assets/script/pedido/eliminar_pedido.js"></script>
+</body>
+</html>

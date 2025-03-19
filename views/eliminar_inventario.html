@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Inventario</title>
+    <link rel="stylesheet" href="/assets/css/style11.css">
+    <link rel="stylesheet" href="/assets/logout.css">
+</head>
+<body>
+    <a href="/views/login.html" class="logout">Cerrar sesión</a>
+    <div class="container">
+        <h1>Eliminar Inventario</h1>
+
+        <!-- Tabla para mostrar el inventario -->
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Inventario</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tablaInventario">
+                <!-- Los productos del inventario se llenarán aquí -->
+            </tbody>
+        </table>
+
+        <!-- Botón Atrás -->
+        <button class="back-button" onclick="window.location.href='empleado.html'">Atrás</button>
+    </div>
+
+    <script src="/assets/script/inventario/eliminar_inventario.js"></script>
+</body>
+</html>
