@@ -16,12 +16,13 @@ router.post('/agregar-pedido', (req, res) => {
                    VALUES ($1, 'En preparación', NOW(), $2, $3, $4)`;
 
     db.query(query, [descripcion, total, id_empleado, id_cliente], (err, result) => {
-        if (err) {
-            console.error('Error al agregar pedido:', err.message);
-            return res.status(500).json({ success: false, message: 'Error al agregar el pedido' });
-        }
-        res.json({ success: true, message: 'Pedido agregado correctamente' });
-    });
+    if (err) {
+        console.error('Error detallado al agregar pedido:', err);  // Esto nos dará más detalles sobre el error
+        return res.status(500).json({ success: false, message: 'Error al agregar el pedido', error: err.message });
+    }
+    res.json({ success: true, message: 'Pedido agregado correctamente' });
+});
+
 });
 
 // Obtener todos los pedidos
