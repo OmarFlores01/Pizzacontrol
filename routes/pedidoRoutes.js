@@ -5,9 +5,9 @@ const db = require('../models/config/db'); // Asegúrate de tener tu conexión a
 // Ruta para agregar un pedido
 router.post('/agregar-pedido', (req, res) => {
     const { descripcion, total, id_empleado, id_cliente } = req.body;
+    const estado = 'En preparación';  // Valor estático para prueba
 
-    // Validar estado
-    const estado = 'En preparación';  // Asumiendo que el estado es "En preparación"
+    console.log('Estado:', estado);  // Verifica el valor exacto de Estado
 
     // Verificar si los campos obligatorios están presentes
     if (!descripcion || !total || !id_empleado || !id_cliente) {
