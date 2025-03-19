@@ -9,9 +9,10 @@ router.post("/login", async (req, res) => {
     try {
         // Consulta en la tabla clientes
         const clienteResult = await db.query(
-            'SELECT "ID_Cliente", "Correo", "Contrasena" FROM clientes WHERE "Correo" = $1',
-            [email]
-        );
+    'SELECT "id_cliente", "correo", "contrasena" FROM clientes WHERE "correo" = $1',
+    [email]
+);
+
 
         console.log("Resultado de la consulta en clientes:", clienteResult.rows);  // Debug
 
