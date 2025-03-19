@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../models/config/db"); // Conexión correcta a la base de datos
-const bcrypt = require("bcrypt"); // Importa bcrypt para comparar contraseñas hashadas
+const db = require("../models/config/db");
+const bcrypt = require("bcrypt");
 
-// Ruta para login de empleados y clientes
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -14,12 +13,18 @@ router.post("/login", async (req, res) => {
             [email]
         );
 
+        console.log("Resultado de la consulta en clientes:", clienteResult.rows);  // Debug
+
         if (clienteResult.rows.length > 0) {
             const cliente = clienteResult.rows[0];
+            console.log("Cliente encontrado:", cliente);  // Debug
 
-            // Verificar si la contraseña coincide (si está usando bcrypt)
-            const isMatch = await bcrypt.compare(password, cliente.Contrasena);
-            
+            // Si las contraseñas están en texto plano
+            const isMatch = password === cliente.Contrasena;
+
+            // Si las contraseñas están hashadas, usa bcrypt:
+            // const isMatch = await bcrypt.compare(password, cliente.Contrasena);
+
             if (isMatch) {
                 return res.json({
                     success: true,
@@ -37,12 +42,18 @@ router.post("/login", async (req, res) => {
             [email]
         );
 
+        console.log("Resultado de la consulta en empleados:", empleadoResult.rows);  // Debug
+
         if (empleadoResult.rows.length > 0) {
             const empleado = empleadoResult.rows[0];
+            console.log("Empleado encontrado:", empleado);  // Debug
 
-            // Verificar si la contraseña coincide (si está usando bcrypt)
-            const isMatch = await bcrypt.compare(password, empleado.Contrasena);
-            
+            // Si las contraseñas están en texto plano
+            const isMatch = password === empleado.Contrasena;
+
+            // Si las contraseñas están hashadas, usa bcrypt:
+            // const isMatch = await bcrypt.compare(password, empleado.Contrasena);
+
             if (isMatch) {
                 return res.json({
                     success: true,
@@ -63,35 +74,5 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// Ruta para el registro de nuevos usuarios (clientes)
-router.post("/registro", async (req, res) => {
-    const { nombre, telefono, correo, contrasena } = req.body;
-
-    try {
-        // Verificar si el correo ya está registrado
-        const existingCliente = await db.query(
-            'SELECT "Correo" FROM clientes WHERE "Correo" = $1',
-            [correo]
-        );
-
-        if (existingCliente.rows.length > 0) {
-            return res.status(400).json({ error: "El correo ya está registrado" });
-        }
-
-        // Hashear la contraseña antes de guardarla
-        const hashedPassword = await bcrypt.hash(contrasena, 10);
-
-        // Insertar nuevo cliente en la base de datos
-        const newCliente = await db.query(
-            'INSERT INTO clientes ("Nombre", "Telefono", "Correo", "Contrasena") VALUES ($1, $2, $3, $4) RETURNING "ID_Cliente"',
-            [nombre, telefono, correo, hashedPassword]
-        );
-
-        return res.json({ success: true, id_cliente: newCliente.rows[0].ID_Cliente });
-    } catch (error) {
-        console.error("Error en el registro:", error.message);
-        return res.status(500).json({ error: "Error al registrar el cliente" });
-    }
-});
-
 module.exports = router;
+
