@@ -10,18 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const password = loginForm.password.value;
 
             try {
-                const response = await fetch("/api/auth/login", {  
+                const response = await fetch("/api/auth/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password }),
                 });
-                
 
                 const data = await response.json();
 
                 if (response.ok) {
-                    localStorage.setItem("id_empleado", data.id_empleado);
-                    localStorage.setItem("id_cliente", data.id_cliente);
+                    if (data.id_empleado) {
+                        localStorage.setItem("id_empleado", data.id_empleado);
+                    } else if (data.id_cliente) {
+                        localStorage.setItem("id_cliente", data.id_cliente);
+                    }
                     window.location.href = data.redirect;
                 } else {
                     alert(data.error || "Hubo un error al iniciar sesión.");
@@ -43,12 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const contrasena = document.getElementById("contrasena").value;
 
             try {
-                const response = await fetch("/api/auth/registro", {  
+                const response = await fetch("/api/auth/registro", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ nombre, telefono, correo, contrasena }),
                 });
-                
 
                 const data = await response.json();
 
