@@ -16,6 +16,7 @@ document.getElementById('pedidoForm').addEventListener('submit', function(event)
         return;
     }
 
+    // Realizamos la llamada fetch para agregar el pedido
     fetch('/api/pedidos/agregar-pedido', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,7 +26,7 @@ document.getElementById('pedidoForm').addEventListener('submit', function(event)
     .then(data => {
         if (data.success) {
             alert('Pedido agregado correctamente');
-            window.location.href = '/views/empleado.html';
+            window.location.href = '/views/empleado.html'; // Redirigir a la página de empleado
         } else {
             alert('Error al agregar el pedido: ' + data.message);
         }
